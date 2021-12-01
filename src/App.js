@@ -6,6 +6,7 @@ import NavigationBar from "./NavigationBar";
 import LoginPage from "./LoginPage";
 import Cookies from "universal-cookie";
 import {Route} from "react-router";
+import SignUp from "./SignUp";
 
 class App extends React.Component {
 
@@ -36,7 +37,8 @@ class App extends React.Component {
                   </div>
                   :
                   <div>
-                    <Route path={"/"} component={LoginPage}/>
+                    <Route path={"/"} component={LoginPage} exact={true}/>
+                    <Route path={"/signUp"} component={SignUp}/>
                   </div>
             }
           </BrowserRouter>
