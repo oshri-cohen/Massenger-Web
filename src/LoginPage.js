@@ -25,7 +25,7 @@ class LoginPage extends React.Component {
     }
 
     login = () => {
-        axios.get("http://localhost:8989/sign-in",{
+        axios.get("http://127.0.0.1:8989/sign-in",{
             params:{
                 username:this.state.username,
                 password:this.state.password
@@ -38,7 +38,7 @@ class LoginPage extends React.Component {
                     window.location.reload();
                 }else {
                     this.setState({
-                        showError: false
+                        showError: true
                     })
                 }
 
