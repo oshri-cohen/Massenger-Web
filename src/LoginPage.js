@@ -32,18 +32,24 @@ class LoginPage extends React.Component {
             }
         })
             .then((response)=>{
-                if (response.data && response.data.length >0){
-                    const cookies  = new Cookies();
-                    cookies.set("logged_in",response.data);
-                    window.location.reload();
-                }else {
+                if (response.data == "username") {
                     this.setState({
-                        showError: true
+                        showError:"The user does not exist "
                     })
+                }else {
+                    if (response.data == "password") {
+                        this.setState({
+                            showError:"The password is incorrect"
+                        })
+                    } else {
+                        const cookies = new Cookies();
+                        cookies.set("logged_in", response.data);
+                        window.location.reload();
+                    }
                 }
-
             })
     }
+
 
 
     render() {
@@ -62,8 +68,7 @@ class LoginPage extends React.Component {
                 />
                 <button onClick={this.login}>Login</button>
                 {
-                    this.state.showError &&
-                    <div>Wrong Password</div>
+                    this.state.showError
                 }
                 <div>
                     {this.state.response}

@@ -16,7 +16,7 @@ class App extends React.Component {
 
   componentDidMount() {
     const cookies = new Cookies();
-    if (cookies.get("logged_in") == "true") {
+    if (cookies.get("logged_in") && cookies.get("logged_in").length >0) {
       this.setState({
         isLoggedIn: true
       })
