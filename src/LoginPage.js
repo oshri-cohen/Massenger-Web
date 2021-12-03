@@ -42,9 +42,15 @@ class LoginPage extends React.Component {
                             showError:"The password is incorrect"
                         })
                     } else {
-                        const cookies = new Cookies();
-                        cookies.set("logged_in", response.data);
-                        window.location.reload();
+                        if(response.data == "block"){
+                            this.setState({
+                                showError:"This user that call - ' "+ this.state.username +" ', was block after more then 5 uncorrected attempts , Please contact your system administrator"
+                            })
+                        }else {
+                            const cookies = new Cookies();
+                            cookies.set("logged_in", response.data);
+                            window.location.reload();
+                        }
                     }
                 }
             })

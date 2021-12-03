@@ -56,7 +56,6 @@ class SignUp extends React.Component {
 
     SignUp = () => {
         if(this.state.checkUpperCase && this.state.checkLengthPassword &&this.state.checkNumber && this.state.checkPhone) {
-            alert("hhhh")
             axios.get("http://localhost:8989/create-account", {
                 params: {
                     username: this.state.username,
@@ -66,16 +65,18 @@ class SignUp extends React.Component {
                 .then((response) => {
                     if (response.data) {
                         this.setState({
-                            showError: "the user create"
+                            showError: "the user create, now go to login in our site!"
                         })
                     } else {
                         this.setState({
-                            showError: "the user exist"
+                            showError: "the username exist - change your username!"
                         })
                     }
                 })
         }else {
-            alert("no no")
+            this.setState({
+                showError: "It is necessary to comply with the policy"
+            })
         }
     }
     checkDetails = () => {
@@ -116,7 +117,7 @@ class SignUp extends React.Component {
                 <div>
                     <ul>
                         <li className={this.state.checkPhone ? 'green' : null}>Proper phone number</li>
-                        <li className={this.state.checkLengthPassword ? 'green' : null}>Password with at least 8 characters</li>
+                        <li className={this.state.checkLengthPassword ? 'green' : null}>Password with at least 6 characters</li>
                         <li className={this.state.checkNumber ? 'green' : null}>At least one digit in the password</li>
                         <li className={this.state.checkUpperCase ? 'green' : null}> At least one letter in the password</li>
                     </ul>
