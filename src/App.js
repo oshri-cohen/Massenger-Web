@@ -1,12 +1,13 @@
 import './App.css';
 import * as React from "react";
 import {BrowserRouter} from "react-router-dom";
-import ProfilePage from "./ProfilePage";
+import MyMessages from "./MyMessages";
 import NavigationBar from "./NavigationBar";
 import LoginPage from "./LoginPage";
 import Cookies from "universal-cookie";
 import {Route} from "react-router";
 import SignUp from "./SignUp";
+import SendMessage from "./SendMessage";
 
 class App extends React.Component {
 
@@ -32,8 +33,8 @@ class App extends React.Component {
               this.state.isLoggedIn ?
                   <div>
                     <NavigationBar/>
-                    <Route path={"/"} component={ProfilePage}/>
-                    <Route path={"/profile"} component={ProfilePage}/>
+                    <Route path={"/My-messages"} component={MyMessages}/>
+                    <Route path={"/SendMessage"} component={SendMessage}/>
                   </div>
                   :
                   <div>

@@ -5,7 +5,7 @@ import Cookies from "universal-cookie";
 
 class NavigationBar extends React.Component {
     state = {
-        links: [{title: "Profile", path: "/profile"}, {title: "About", path: "/about"}]
+        links: [{title: "My messages", path: "/My-messages"}, {title: "Send a message", path: "/SendMessage"}]
     }
 
     logout = () => {
@@ -27,15 +27,16 @@ class NavigationBar extends React.Component {
                                 <NavLink to={link.path} className={"link"} activeClassName={"active"}>
                                     <li>
                                         {link.title}
-
                                     </li>
                                 </NavLink>
                             )
                         })
                     }
-                    <li onClick={this.logout}>
-                        Logout
-                    </li>
+                    <NavLink to={"/"} className={"link"} activeClassName={"active"}>
+                        <li onClick={this.logout}>
+                            Logout
+                        </li>
+                    </NavLink>
                 </ul>
             </div>
         )
