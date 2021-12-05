@@ -32,11 +32,12 @@ class NavigationBar extends React.Component {
                             )
                         })
                     }
-                    <NavLink to={"/"} className={"link"} activeClassName={"active"}>
+
                         <li onClick={this.logout}>
-                            Logout
+                            <NavLink to={"/"} className={"link"} activeClassName={"active"}>
+                                Logout
+                            </NavLink>
                         </li>
-                    </NavLink>
                 </ul>
             </div>
         )
