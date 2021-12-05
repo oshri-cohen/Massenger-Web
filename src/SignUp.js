@@ -102,11 +102,13 @@ class SignUp extends React.Component {
                 Enter password and userName to sign-up
                 <input
                     onChange={this.onUsernameChange}
+                    onKeyDown={this.checkDetails}
                     value={this.state.username}
                     placeholder={"Enter username"}
                 />
                 <input
                     onChange={this.onPasswordChange}
+                    onKeyDown={this.checkDetails}
                     value={this.state.password}
                     placeholder={"Enter password"}
                 />
