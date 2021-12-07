@@ -57,7 +57,7 @@ class MyMessages extends React.Component {
         return (
             <div>
                 {
-                    this.state.message.length == 0??
+                    this.state.message.length == 0&&
                         <div> no message </div>
                 }
                 {

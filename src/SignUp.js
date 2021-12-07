@@ -11,32 +11,33 @@ class SignUp extends React.Component {
         response:"",
         number: "05",
         regionNumber : "+972",
-        checkPhone : false,
-        checkLengthPassword : false,
-        checkUpperCase : false,
-        checkNumber :false
-
     }
     CheckLength = () => {
-        this.setState({
-            checkLengthPassword : this.state.password.length > 5 ? true : false
-        })
+        const checkLengthPassword = this.state.password.length > 5 ? true : false
+        return checkLengthPassword
     }
 
     checkForNumbers =()=>{
         let matches =this.state.password.match(/\d+/g);
-        this.setState({
-            checkNumber:matches != null ? true : false
-        })
-
+        const checkNumber = matches != null ? true : false
+        return checkNumber
     }
 
     checkForUpperCase = ()=> {
         let matchesA = this.state.password.match(/[A-Z]/);
         let matchesB = this.state.password.match(/[a-z]/);
-        this.setState({
-            checkUpperCase: matchesA != null || matchesB != null ? true : false
-        })
+        const checkUpperCase = matchesA != null || matchesB != null ? true : false
+        return checkUpperCase
+    }
+
+    checkPhone=()=> {
+        let checkPhone = false;
+        if (this.state.username.length == 10) {
+            if ((this.state.username.startsWith(this.state.number)) || (this.state.username.startsWith(this.state.regionNumber))) {
+                checkPhone = true
+            }
+        }
+        return checkPhone
     }
 
     onUsernameChange = (e) => {
@@ -44,18 +45,16 @@ class SignUp extends React.Component {
         this.setState({
             username: username
         })
-        this.checkDetails()
     }
 
     onPasswordChange = (e) => {
         this.setState({
             password: e.target.value
         })
-        this.checkDetails()
     }
 
     SignUp = () => {
-        if(this.state.checkUpperCase && this.state.checkLengthPassword &&this.state.checkNumber && this.state.checkPhone) {
+        if(this.checkForUpperCase() && this.checkForNumbers() && this.CheckLength() && this.checkPhone()) {
             axios.get("http://localhost:8989/create-account", {
                 params: {
                     username: this.state.username,
@@ -79,22 +78,8 @@ class SignUp extends React.Component {
             })
         }
     }
-    checkDetails = () => {
-        this.CheckLength()
-        this.checkForNumbers()
-        this.checkForUpperCase()
-        if (this.state.username.length == 10 ){
-            if ((this.state.username.startsWith(this.state.number)) ||(this.state.username.startsWith(this.state.regionNumber))) {
-                this.setState({
-                    checkPhone : true
-                })
-            }else {
-                this.setState({
-                    checkPhone : false
-                })
-            }
-        }
-    }
+
+
 
     render() {
         return (
@@ -102,13 +87,11 @@ class SignUp extends React.Component {
                 Enter password and userName to sign-up
                 <input
                     onChange={this.onUsernameChange}
-                    onKeyDown={this.checkDetails}
                     value={this.state.username}
                     placeholder={"Enter username"}
                 />
                 <input
                     onChange={this.onPasswordChange}
-                    onKeyDown={this.checkDetails}
                     value={this.state.password}
                     placeholder={"Enter password"}
                 />
@@ -118,10 +101,10 @@ class SignUp extends React.Component {
                 </div>
                 <div>
                     <ul>
-                        <li className={this.state.checkPhone ? 'green' : null}>Proper phone number</li>
-                        <li className={this.state.checkLengthPassword ? 'green' : null}>Password with at least 6 characters</li>
-                        <li className={this.state.checkNumber ? 'green' : null}>At least one digit in the password</li>
-                        <li className={this.state.checkUpperCase ? 'green' : null}> At least one letter in the password</li>
+                        <li className={this.checkPhone() ? 'green' : null}>Proper phone number</li>
+                        <li className={this.CheckLength() ? 'green' : null}>Password with at least 6 characters</li>
+                        <li className={this.checkForNumbers() ? 'green' : null}>At least one digit in the password</li>
+                        <li className={this.checkForUpperCase() ? 'green' : null}> At least one letter in the password</li>
                     </ul>
                 </div>
                 <div>
