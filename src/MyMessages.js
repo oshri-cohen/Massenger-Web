@@ -27,6 +27,17 @@ class MyMessages extends React.Component {
             })
     }
 
+    deleteMessage=(messageId)=>{
+        axios.get("http://localhost:8989/deleteMessages",{
+            params:{
+                id:messageId
+            }
+        })
+            .then((response)=>{
+                this.getAllMessage()
+            })
+    }
+
 
     render() {
         return (
@@ -47,6 +58,7 @@ class MyMessages extends React.Component {
                                 <div>
                                     {message1.readTime == null ? "no read" : "read"}
                                 </div>
+                                <button onClick={() => this.deleteMessage(message1.messageId)}>delete message</button>
                             </div>
                         )
                     })

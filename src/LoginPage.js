@@ -61,7 +61,9 @@ class LoginPage extends React.Component {
     render() {
         return (
             <div>
-                Enter your login credentials
+                <div className={"title"}>
+                    Enter your login credentials
+                </div>
                 <input
                     onChange={this.onUsernameChange}
                     value={this.state.username}

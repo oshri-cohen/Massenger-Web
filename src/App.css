@@ -1,4 +1,5 @@
 .App {
+
   text-align: center;
 }
 
@@ -35,4 +36,33 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.title{
+  font-family: "Zilla Slab SemiBold";
+  background-color: #282c34;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(20px + 2vmin);
+  color: white;
+}
+
+.button{
+  border:1px outset #F90;
+}
+
+.details{
+  font-family: "Zilla Slab SemiBold";
+}
+
+body{
+  align-items: center;
+  font-size: calc(20px + 2vmin);
+
+}
+
+.showEror{
+  font-family: "Zilla Slab SemiBold";
 }

@@ -98,23 +98,27 @@ class SignUp extends React.Component {
 
     render() {
         return (
-            <div>
-                Enter password and userName to sign-up
-                <input
-                    onChange={this.onUsernameChange}
-                    value={this.state.username}
-                    placeholder={"Enter username"}
-                />
-                <input
-                    onChange={this.onPasswordChange}
-                    value={this.state.password}
-                    placeholder={"Enter password"}
-                />
-                <button onClick={this.SignUp}>sign-up</button>
-                <div>
+            <div >
+                <div className={"title"}>
+                    Enter password and userName to sign-up
+                </div>
+                <div >
+                    <input
+                        onChange={this.onUsernameChange}
+                        value={this.state.username}
+                        placeholder={"Enter username"}
+                    />
+                    <input
+                        onChange={this.onPasswordChange}
+                        value={this.state.password}
+                        placeholder={"Enter password"}
+                    />
+                    <button className={"button"} onClick={this.SignUp}>sign-up</button>
+                </div>
+                <div className={"showEror"}>
                     {this.state.showError}
                 </div>
-                <div>
+                <div className={"details"}>
                     <ul>
                         <li className={this.state.checkPhone ? 'green' : null}>Proper phone number</li>
                         <li className={this.state.checkLengthPassword ? 'green' : null}>Password with at least 6 characters</li>
@@ -124,7 +128,7 @@ class SignUp extends React.Component {
                 </div>
                 <div>
                     <NavLink to={"/"} className={"link"} activeClassName={"active"}>
-                        <button >back to signIn</button>
+                        <button className={"button"}>back to signIn</button>
                     </NavLink>
                 </div>
             </div>
