@@ -12,6 +12,31 @@ class MyMessages extends React.Component {
         this.getAllMessage()
     }
 
+
+    deleteMessage=(messageId)=>{
+        axios.get("http://127.0.0.1:8989/deleteMessage",{
+            params:{
+                id:messageId
+            }
+        })
+            .then((response)=>{
+                this.getAllMessage()
+            })
+
+    }
+
+    markAsRead=(messageId)=>{
+        axios.get("http://localhost:8989/markAsRead",{
+            params:{
+                id: messageId
+            }
+        })
+            .then((response)=>{
+                this.getAllMessage()
+            })
+    }
+
+
     getAllMessage =()=>{
         const cookies = new Cookies();
         axios.get("http://localhost:8989/MyMessages",{
@@ -43,6 +68,10 @@ class MyMessages extends React.Component {
         return (
             <div>
                 {
+                    this.state.message.length == 0&&
+                        <div> no message </div>
+                }
+                {
                     this.state.message.map(message1 =>{
                         return(
                             <div>
@@ -56,9 +85,15 @@ class MyMessages extends React.Component {
                                     {message1.senderName}
                                 </div>
                                 <div>
+                                    {message1.messageId}
+                                </div>
+                                <div>
                                     {message1.readTime == null ? "no read" : "read"}
                                 </div>
                                 <button onClick={() => this.deleteMessage(message1.messageId)}>delete message</button>
+                                <button onClick={() => this.markAsRead(message1.messageId) } disabled={message1.readTime == null ? false : true}>mark As Read</button>
+                                <button onClick={() => this.deleteMessage(message1.messageId)}>delete message</button>
+
                             </div>
                         )
                     })
