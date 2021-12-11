@@ -9,13 +9,28 @@ class SendMessage extends React.Component {
         title : '' ,
         contentMessage : '',
         chekInput : false,
-        showMessage:""
+        showMessage:"",
+        usernameExists: false,
+        value1:""
     }
+
     changeName = (e) => {
         let username = e.target.value;
         this.setState({
             username: username
-        })
+        }, () => {
+            axios.get("http://localhost:8989/checkIfUserExistByUsername",{
+                params:{
+                    username : this.state.username
+                }
+            })
+                .then((response)=>{
+                    this.setState({
+                        usernameExists: response.data
+                    });
+                })
+
+        });
     }
 
 
@@ -34,6 +49,11 @@ class SendMessage extends React.Component {
             contentMessage: content
         })
     }
+
+    inputValue =()=>{
+        return (this.state.title != '' && this.state.contentMessage != '')
+    }
+
     sendMessage = () => {
         const cookies = new Cookies();
         axios.get("http://127.0.0.1:8989/sendMessage",{
@@ -62,51 +82,37 @@ class SendMessage extends React.Component {
 
     }
 
-    checkSend =()=>{
-        let checkIfUserExist = false
-        let value1 = this.state.title != '' && this.state.contentMessage != '' ? true:false
-        const cookies = new Cookies();
-        axios.get("http://localhost:8989/checkIfUserExistByUsername",{
-            params:{
-                username : this.state.username
-            }
-        })
-            .then((response)=>{
-                checkIfUserExist = response.data
-            })
-
-        let ch =!(value1 && checkIfUserExist)
-        if (checkIfUserExist){
-            alert( "user : "+checkIfUserExist)
-        }
-        if (value1){
-            alert("content: "+value1)
-        }
-        return ch
-    }
 
 
     render() {
         return (
             <div>
-                fill the form :
-                <input
+                <div className={"details"}>
+                    fill the form :
+                </div>
+                <input className={"button"}
                     onChange={this.changeName}
                     value={this.state.username}
                     placeholder={"Enter username"}
                 />
-                <input
+                <div>
+                </div>
+                <input className={"button"}
                     onChange={this.changeTitle}
                     value={this.state.title}
                     placeholder={"Title"}
                 />
-                <input
+                <div>
+                </div>
+                <input className={"button"}
                     onChange={this.changeContent}
                     value={this.state.contentMessage}
                     placeholder={"content message"}
                 />
-                <button onClick={this.sendMessage} disabled={false}>send message</button>
                 <div>
+                </div>
+                <button className={"button"} onClick={this.sendMessage} disabled={!(this.state.usernameExists && this.inputValue())}>send message</button>
+                <div className={"details"}>
                     {this.state.showMessage}
                 </div>
             </div>

@@ -17,7 +17,7 @@ class NavigationBar extends React.Component {
     render() {
         return (
             <div>
-                <div>
+                <div className={"title"}>
                     Navigation Bar
                 </div>
                 <ul>

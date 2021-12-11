@@ -4,47 +4,48 @@ import Cookies from "universal-cookie/es6";
 import axios from "axios";
 
 class MyMessages extends React.Component {
-    state ={
-        token:"",
-        message:[]
+    state = {
+        token: "",
+        message: []
     }
+
     componentDidMount() {
         this.getAllMessage()
     }
 
 
-    deleteMessage=(messageId)=>{
-        axios.get("http://127.0.0.1:8989/deleteMessage",{
-            params:{
-                id:messageId
-            }
-        })
-            .then((response)=>{
-                this.getAllMessage()
-            })
-
-    }
-
-    markAsRead=(messageId)=>{
-        axios.get("http://localhost:8989/markAsRead",{
-            params:{
+    deleteMessage = (messageId) => {
+        axios.get("http://127.0.0.1:8989/deleteMessage", {
+            params: {
                 id: messageId
             }
         })
-            .then((response)=>{
+            .then((response) => {
+                this.getAllMessage()
+            })
+
+    }
+
+    markAsRead = (messageId) => {
+        axios.get("http://localhost:8989/markAsRead", {
+            params: {
+                id: messageId
+            }
+        })
+            .then((response) => {
                 this.getAllMessage()
             })
     }
 
 
-    getAllMessage =()=>{
+    getAllMessage = () => {
         const cookies = new Cookies();
-        axios.get("http://localhost:8989/MyMessages",{
-            params:{
-                token:cookies.get("logged_in")
+        axios.get("http://localhost:8989/MyMessages", {
+            params: {
+                token: cookies.get("logged_in")
             }
         })
-            .then((response)=>{
+            .then((response) => {
                 /*const myMessages = response.data.sort((a,b) => a.sendTime > b.sendTime);*/
                 this.setState({
                     message: response.data
@@ -52,13 +53,13 @@ class MyMessages extends React.Component {
             })
     }
 
-    deleteMessage=(messageId)=>{
-        axios.get("http://localhost:8989/deleteMessages",{
-            params:{
-                id:messageId
+    deleteMessage = (messageId) => {
+        axios.get("http://localhost:8989/delete-messages", {
+            params: {
+                id: messageId
             }
         })
-            .then((response)=>{
+            .then((response) => {
                 this.getAllMessage()
             })
     }
@@ -68,32 +69,41 @@ class MyMessages extends React.Component {
         return (
             <div>
                 {
-                    this.state.message.length == 0&&
-                        <div> no message </div>
+                    this.state.message.length == 0 &&
+                    <div> no message </div>
                 }
                 {
-                    this.state.message.map(message1 =>{
-                        return(
-                            <div>
+                    this.state.message.map(message1 => {
+                        return (
+                            <div className={"message"}>
+                                <span className={"details"}>
+                                    Sender Phone number:
+                                </span>
+                                {message1.senderName}
                                 <div>
-                                    {message1.title}
+
                                 </div>
+                                <span className={"details"}>
+                                    Title:
+                                </span>
+                                {message1.title}
                                 <div>
-                                    {message1.body}
+
                                 </div>
+                                <span className={"details"}>
+                                    content:
+                                </span>
+                                {message1.body}
+
                                 <div>
-                                    {message1.senderName}
-                                </div>
-                                <div>
-                                    {message1.messageId}
                                 </div>
                                 <div>
                                     {message1.readTime == null ? "no read" : "read"}
                                 </div>
                                 <button onClick={() => this.deleteMessage(message1.messageId)}>delete message</button>
-                                <button onClick={() => this.markAsRead(message1.messageId) } disabled={message1.readTime == null ? false : true}>mark As Read</button>
-                                <button onClick={() => this.deleteMessage(message1.messageId)}>delete message</button>
-
+                                <button onClick={() => this.markAsRead(message1.messageId)}
+                                        disabled={message1.readTime == null ? false : true}>mark As Read
+                                </button>
                             </div>
                         )
                     })
@@ -101,7 +111,10 @@ class MyMessages extends React.Component {
             </div>
         )
     }
+
 }
+
+
 
 
 export default MyMessages;

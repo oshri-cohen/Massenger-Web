@@ -32,7 +32,8 @@ class SignUp extends React.Component {
 
     checkPhone=()=> {
         let checkPhone = false;
-        if (this.state.username.length == 10) {
+        debugger
+        if (this.state.username.length == 10 && this.isNumeric(this.state.username)) {
             if ((this.state.username.startsWith(this.state.number)) || (this.state.username.startsWith(this.state.regionNumber))) {
                 checkPhone = true
             }
@@ -81,6 +82,10 @@ class SignUp extends React.Component {
 
 
 
+    isNumeric = (text) => {
+        return !isNaN(text);
+    }
+
     render() {
         return (
             <div >
@@ -88,12 +93,12 @@ class SignUp extends React.Component {
                     Enter password and userName to sign-up
                 </div>
                 <div >
-                    <input
+                    <input className={"button"}
                         onChange={this.onUsernameChange}
                         value={this.state.username}
                         placeholder={"Enter username"}
                     />
-                    <input
+                    <input className={"button"}
                         onChange={this.onPasswordChange}
                         value={this.state.password}
                         placeholder={"Enter password"}
